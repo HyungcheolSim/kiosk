@@ -2,7 +2,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AddData {
-
+    public static List<Category> categoryList = new ArrayList<>();
+    public static List<Product> productList = new ArrayList<>();
+    public static List<Order> orderList = new ArrayList<>();
 
     //상품 카테고리
     public static final Category CAT_BURGER = new Category("Burgers", "직화구이 패티와 다양하고 매력적인 소스들, 부드러운 번으로 만든 최고의 가성비 버거");
