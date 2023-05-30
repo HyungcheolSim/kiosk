@@ -3,9 +3,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 public class Kiosk {
-    public List<Category> categoryList = new ArrayList<>();
-    public List<Product> productList = new ArrayList<>();
-    public List<Order> orderList = new ArrayList<>();
     public static int cost;
     public static int waiting;
     //TODO static 풀기
