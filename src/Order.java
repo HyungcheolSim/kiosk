@@ -5,6 +5,10 @@ public class Order extends Product{
         return count;
     }
 
+    public void setCount(int count) {
+        this.count = count;
+    }
+
     public Order(String catName, String catComment, String pdName, int price, String pdComment) {
         super(catName, catComment, pdName, price, pdComment);
         this.count++;
