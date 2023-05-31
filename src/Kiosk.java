@@ -4,13 +4,16 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public class Kiosk {
-    public static int cost;
-    public static int sales;
-    public static int waiting;
-
-    public static List<Order> wholeSaleList=new ArrayList<>();
+    //주문 시 총 금액
+    private static int cost;
+    //총 판매금액
+    private static int sales;
+    //대기번호
+    private static int waiting;
+    //총 판매 목록을 담을 List
+    static List<Order> wholeSaleList=new ArrayList<>();
     //TODO static 풀기
-    static Scanner scan = new Scanner(System.in);
+    static Scanner scan = new Scanner(System.in);//일반적으로(멀티스레드 환경에서 적절하지 않으므로) 부적합
 
     //메인 메뉴판
     public static void showCategoryList() {
@@ -36,6 +39,7 @@ public class Kiosk {
         System.out.println("아래 상품메뉴판을 보시고 상품을 골라 입력해주세요.");
         System.out.println();
         System.out.println("[ " + categoryName + " MENU ]");
+        //특정 category 로 한정된 상품 목록
         List<Product> catProduct = new ArrayList<>();
         int j = 1;
         for (Product product : AddData.productList) {
@@ -101,7 +105,7 @@ public class Kiosk {
     }
 
     //장바구니 보기
-    private static void showOrderList() throws InterruptedException {
+    private static void showOrderList() {
         System.out.println("아래와 같이 주문하시겠습니까?");
         System.out.println();
         System.out.println(" [ Orders ]");
@@ -117,7 +121,7 @@ public class Kiosk {
     }
 
     //주문 확정
-    private static void orderFinish() throws InterruptedException {
+    private static void orderFinish() {
         int decision = scan.nextInt();
         if (decision == 1) {
             if (!AddData.orderList.isEmpty()) {
@@ -128,7 +132,12 @@ public class Kiosk {
                 cost = 0;
                 wholeSaleList.addAll(AddData.orderList);
                 AddData.orderList.clear();
-                Thread.sleep(3000);
+                try{
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                    throw new RuntimeException(e);
+                }
             } else {
                 System.out.println("장바구니가 비었습니다! 먼저 상품을 장바구니에 담아주세요!");
             }
@@ -136,7 +145,7 @@ public class Kiosk {
     }
 
     //메인 메뉴 선택
-    public static void selectCategory() throws InterruptedException {
+    public static void selectCategory() {
         int choice = scan.nextInt();
         switch (choice) {
             case 1 -> showProductsList(AddData.CAT_BURGER.getCatName());
@@ -179,5 +188,4 @@ private static void showSales(){
         //메인 메뉴판
         showCategoryList();
     }
-
 }

@@ -44,7 +44,7 @@ public class AddData {
     public static final Product MINERAL_WATER = new Product(CAT_BEVERAGE.getCatName(), CAT_SIDE.getCatComment(),"노라벨 생수",1400,"비닐 라벨이 없어 분리배출이 편한 친환경 노라벨 생수");
     public static final Product PEPSIZERO = new Product(CAT_BEVERAGE.getCatName(), CAT_SIDE.getCatComment(),"펩시제로슈가",1800,"요즘 인기 최고의 제로 콜라");
 
-    public static boolean Prestruct() {
+    public static boolean prestruct() {
         categoryList.add(CAT_BURGER);
         categoryList.add(CAT_BURGERPACK);
         categoryList.add(CAT_SALAD);

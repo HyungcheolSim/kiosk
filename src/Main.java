@@ -1,13 +1,12 @@
 public class Main {
-    public static void main(String[] args) throws InterruptedException {
-        boolean IsDataCreated=AddData.Prestruct();
-        if(!IsDataCreated) {
+    public static void main(String[] args){
+        boolean isDataCreated=AddData.prestruct();
+        if(!isDataCreated) {
             System.out.println("데이터가 정상적으로 생성되지 않았습니다.");
         }
-        boolean kioskEnded;
-        do {
-            kioskEnded = KioskApp.start();
-            //kioskEnded=false;
-        } while (kioskEnded);
+        for(int i=0;i<20;i++){//그냥 20번 돌려~
+            KioskApp.start();
+        }
+
     }
 }
