@@ -1,4 +1,4 @@
-public class Order extends Product{
+public class Order extends Product {
     private int count;
 
     public int getCount() {
@@ -7,11 +7,6 @@ public class Order extends Product{
 
     public void setCount(int count) {
         this.count = count;
-    }
-
-    public Order(String name, String desc,double price) {
-        super( name,desc,price);
-        this.count++;
     }
 
     public Order(Product product) {
