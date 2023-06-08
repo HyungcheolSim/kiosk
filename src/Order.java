@@ -11,6 +11,7 @@ public class Order extends Product {
 
     public Order(Product product) {
         super(product.getName(), product.getDescription(), product.getPrice());
-        this.count++;
+        // 튜터님 피드백 반영
+        this.count=1;
     }
 }
