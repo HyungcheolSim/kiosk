@@ -1,9 +1,11 @@
 # kiosk
-키오스크 구현
+키오스크 기능 구현
+
+참고한 데이터: 노브랜드 버거 메뉴판(23.05)
 
 화면은 System.out을 통한 출력으로 구현
 --------------------------------------------
-Notion 링크
+상세 설명
 
 https://boundless-pudding-4e9.notion.site/d2c019f6254e4e69af7d298ce811c4ee?pvs=4
 
