@@ -1,14 +1,12 @@
 import java.util.*;
 
 public class Kiosk {
-    //public static Map<String, List<? extends Category>> dataMap;
-
     //Product Data
-    public static Map<String, List<Product>> productMap;
+    public Map<String, List<Product>> productMap;
     //Category Data
-    public static List<Category> categoryList;
+    public List<Category> categoryList;
     //Order Data 를 받을 List
-    public static List<Order> orderList = new ArrayList<>();
+    public List<Order> orderList = new ArrayList<>();
 
     //주문 시 총 금액
     private static double cost;
@@ -17,9 +15,9 @@ public class Kiosk {
     //대기번호
     private static int waiting;
     //총 판매 목록을 담을 List
-    static List<Order> wholeSaleList = new ArrayList<>();
+    List<Order> wholeSaleList = new ArrayList<>();
 
-    public static void init() {
+    public void init() {
         productMap = new HashMap<>();
         categoryList = Arrays.asList(
                 new Category("Burgers", "직화구이 패티와 다양하고 매력적인 소스들, 부드러운 번으로 만든 최고의 가성비 버거"),
@@ -68,7 +66,7 @@ public class Kiosk {
     }
 
     //메인 메뉴판
-    public static void showCategoryList() {
+    public void showCategoryList() {
         System.out.println("===================================================================================");
         System.out.println("\"노브랜드 버거는 최적의 식자재와 요리방법을 찾아 버거를 중심으로 다양하고 맛있는 새로운 웨스턴 스낵을 제공하는 캐주얼 버거하우스입니다.\"");
         System.out.println("아래 메뉴판을 보시고 메뉴를 골라 입력해주세요.");
@@ -83,19 +81,19 @@ public class Kiosk {
         System.out.println("[ ORDER MENU ]");
         System.out.printf("%d. %-12s | 주문내역을 확인 후 주문합니다.\n", i, "Order");
         System.out.printf("%d. %-12s | 진행중인 주문을 취소합니다.\n", i + 1, "Cancel");
+        System.out.println("[ SYSTEM MENU ]");
+        System.out.printf("%d. %-12s | 키오스크를 종료합니다.\n", i + 2, "Exit");
         System.out.println();
     }
 
     //상품 메뉴판
-    public static void showProductsList(String keyName, int selectCat) {
+    public void showProductsList(String keyName, int selectCat) {
         System.out.println("\"노브랜드 버거는 최적의 식자재와 요리방법을 찾아 버거를 중심으로 다양하고 맛있는 새로운 웨스턴 스낵을 제공하는 캐주얼 버거하우스입니다.\"");
         System.out.println("아래 상품메뉴판을 보시고 상품을 골라 입력해주세요.");
         System.out.println();
         System.out.println("[ " + keyName + " MENU ]");
         int j = 1;
         for (Product product : productMap.get(keyName)) {
-            //줄
-            //System.out.println(j + ". " + product.getName() + "\t| W " + product.getPrice() + " | " + product.getDescription());
             System.out.printf("%d. %-12s | W %3.1f | %s\n", j, product.getName(), product.getPrice(), product.getDescription());
             j++;
         }
@@ -104,7 +102,7 @@ public class Kiosk {
 
     //상품에 옵션을 선택한 후 장바구니에 추가할 수 있게 세분화
     //single(기본) Set
-    public static void showProductOption(Product product) {
+    public void showProductOption(Product product) {
         Scanner scan = new Scanner(System.in);
         System.out.println(product.getName());
         System.out.println("위 메뉴의 어떤 옵션으로 추가하시겠습니까?");
@@ -119,7 +117,7 @@ public class Kiosk {
         }
     }
     //상품 메뉴 선택
-    public static void selectProduct(List<Product> catProduct, int selectCat) {
+    public void selectProduct(List<Product> catProduct, int selectCat) {
         Scanner scan = new Scanner(System.in);
         int num = scan.nextInt();
         if (num <= catProduct.size()) {
@@ -142,7 +140,7 @@ public class Kiosk {
     }
 
     //장바구니 추가
-    public static void addOrder(Product product) {
+    public void addOrder(Product product) {
         System.out.println(product.getName());
         System.out.println("위 메뉴를 장바구니에 추가하시겠습니까?");
         System.out.println("1. 확인\t\t\t\t 2. 취소");
@@ -172,7 +170,7 @@ public class Kiosk {
     }
 
     //장바구니 보기
-    public static void showOrderList() {
+    public void showOrderList() {
         System.out.println("아래와 같이 주문하시겠습니까?");
         System.out.println();
         System.out.println(" [ Orders ]");
@@ -188,7 +186,7 @@ public class Kiosk {
     }
 
     //주문 확정
-    public static void orderFinish() {
+    public void orderFinish() {
         Scanner scan = new Scanner(System.in);
         int decision = scan.nextInt();
         if (decision == 1) {
@@ -206,12 +204,10 @@ public class Kiosk {
                     throw new RuntimeException(e);
                 }
             } else {
-
                 System.out.println("장바구니가 비었습니다! 먼저 상품을 장바구니에 담아주세요!");
             }
         } else if(decision==2){
             System.out.println("카테고리 메뉴판으로 이동합니다.");
-
         }else{
             System.out.println("잘못된 번호를 입력했습니다. 다시 입력해주세요.");
             cost = 0;
@@ -222,7 +218,7 @@ public class Kiosk {
     }
 
     //메인 메뉴 선택
-    public static void selectCategory() {
+    public boolean selectCategory() {
         Scanner scan = new Scanner(System.in);
         int selectCat = scan.nextInt();
         switch (selectCat) {
@@ -238,12 +234,14 @@ public class Kiosk {
                 System.out.println("1. 확인\t\t\t\t 2. 취소");
                 cancelOrder();
             }
+            case 8-> {return runCheck();}
             case 0 -> showSales();
             default -> System.out.println("잘못된 번호를 입력하셨습니다. 정확한 번호를 입력해주세요.");
         }
+        return true;
     }
 
-    public static void showSales() {
+    public void showSales() {
         Scanner scan = new Scanner(System.in);
         System.out.println("[ 총 판매금액 현황 ]");
         System.out.printf("현재까지 총 판매된 금액은 [ W  %-3.1f  ] 입니다\n", sales);
@@ -261,7 +259,7 @@ public class Kiosk {
     }
 
     //입력받은 게 1이면 주문 취소, 장바구니 초기화, 메뉴판 출력
-    public static void cancelOrder() {
+    public void cancelOrder() {
         Scanner scan = new Scanner(System.in);
         int cancel=scan.nextInt();
         if (cancel == 1) {
@@ -273,7 +271,11 @@ public class Kiosk {
         }else{
             System.out.println("잘못 입력하셨습니다 .메인 화면으로 갑니다.");
         }
-        //메인 메뉴판-> 실행의 끝이라 알아서 메인으로 감
-        //showCategoryList();
+    }
+
+    public boolean runCheck() {
+        Scanner scan=new Scanner(System.in);
+        System.out.println("정말 종료하시겠습니까? Y/N");
+        return !scan.nextLine().equalsIgnoreCase("Y");
     }
 }
